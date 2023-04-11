@@ -1,124 +1,121 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import Head from "next/head";
+import { BsFillMoonStarsFill } from "react-icons/bs";
+import { AiFillGithub, AiFillLinkedin, AiFillMail, AiOutlineDownload } from "react-icons/ai";
+import { FiDownload } from "react-icons/fi";
+import { Kalam } from "next/font/google";
+import Image from "next/image";
+import profilePic from "../../public/ryoma.jpeg";
+import multiplayerChess from "../../public/multiplayerChess.png";
+import faveVault from "../../public/faveVault.png";
+import { useState } from "react";
 
-const inter = Inter({ subsets: ['latin'] })
+const kalam = Kalam({ weight: "400", subsets: ["latin"] });
+const resumeLink = "resume.pdf";
+const contacts = [
+  { icon: <AiFillGithub />, link: "https://github.com/BenDaBeast22" },
+  { icon: <AiFillLinkedin />, link: "https://www.linkedin.com/in/benjamin-critoph/" },
+  { icon: <AiFillMail />, link: "bcritoph@uoguelph.ca" },
+];
+const projects = [
+  {
+    name: "Multiplayer Chess Game",
+    p: "A responsive multiplayer chess game created using React where users could send a link to play chess and communicate with their friends. The multiplayer functionality was implemented using web sockets and users could communicate via video call and chat",
+    img: multiplayerChess,
+    alt: "multiplayer chessgame image",
+    link: "https://multiplayer-chess.onrender.com/",
+  },
+  {
+    name: "Bookmark Saving Site",
+    p: "A responsive website where users could save bookmarks, images, and create rankings in collections. Moreover users were able to add friends to view their friends collections",
+    img: faveVault,
+    alt: "Bookmark saving site image",
+    link: "https://favevault-35283.web.app/",
+  },
+];
 
 export default function Home() {
+  const [darkMode, setDarkMode] = useState(false);
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/pages/index.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <div className={darkMode ? "dark" : ""}>
+      <Head>
+        <title>Ben Critoph Portfolio</title>
+      </Head>
+      <main className="bg-blue-100 text-gray-700 px-20 lg:px-30 dark:bg-slate-700 transition-colors duration-300">
+        <section>
+          <nav className="py-10 flex justify-right justify-end">
+            {/* <h1 className={`${kalam.className} text-xl dark:text-white`}>Ben Critoph</h1> */}
+            <ul className="flex items-center">
+              <li>
+                <BsFillMoonStarsFill
+                  onClick={() => setDarkMode(!darkMode)}
+                  className="cursor-pointer text-2xl dark:text-white"
+                />
+              </li>
+            </ul>
+          </nav>
+          <div className="text-center p-5">
+            <h2 className="text-5xl py-2 from text-indigo-600 lg:text-6xl dark:text-white">Benjamin Critoph</h2>
+            <h3 className="text-2xl py-2 lg:text-3xl text-gray-600 dark:text-gray-200">
+              <em>Software Developer</em>
+            </h3>
+            <p className="text-gray-700 text-lg mx-auto py-2 mb-4 leading-8 lg:text-xl max-w-lg dark:text-white">
+              Fourth year computer science co-op student at the University of Guelph. Currently looking for a summer
+              job!
+            </p>
+            <div className="flex justify-center">
+              <a
+                className="w-30 bg-indigo-600  hover:bg-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-400 text-white flex justify-center items-center px-4 py-2 rounded-md"
+                href={resumeLink}
+                download="resume"
+              >
+                <span className="mr-2">Resume</span>
+                <FiDownload />
+              </a>
+            </div>
+          </div>
+          {/* <div className="relative mx-auto bg-gradient-to-b from-blue-500 rounded-full w-80 h-80 mt-20 overflow-hidden md:h-96 md:w-96">
+            <Image src={profilePic} layout="fill" objectFit="cover" alt="profle pic" />
+          </div> */}
+        </section>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+        <section className="projects">
+          <h3 className="text-indigo-700 text-3xl lg:text-4xl py-1 dark:text-white mb-5">Projects</h3>
+          <div className="flex flex-wrap justify-between gap-5">
+            {projects.map((project, index) => (
+              <div
+                className=" md:grow lg:w-5/12 overflow-hidden bg-white shadow-lg shadow-slate-900/25 mb-5 rounded-lg"
+                key={index}
+              >
+                <a href={project.link} target="_blank">
+                  <Image src={project.img} alt={project.alt} className="cursor-pointer" />
+                </a>
+                <div className="p-4 text-gray-700">
+                  <h3 className="border-b-2 border-slate-400 text-2xl pb-2 mb-2">{project.name}</h3>
+                  <p>{project.p}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p
-            className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
-          >
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p
-            className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
-          >
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p
-            className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
-          >
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p
-            className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
-          >
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+        <section className="contact-me">
+          <h3 className="text-indigo-700 text-3xl lg:text-4xl py-1 dark:text-white mb-5">Contact Me</h3>
+          <div className="pb-3 text-slate-600 dark:text-white">
+            {contacts.map((contact) => (
+              <div className="flex items-center mb-5">
+                <span className="text-3xl hover:text-slate-500 mr-3">{contact.icon}</span>
+                <a
+                  className="text-blue-600 hover:text-blue-500 dark:text-indigo-300 dark:hover:text-indigo-200 underline"
+                  href={contact.link}
+                  target="_blank"
+                >
+                  {contact.link}
+                </a>
+              </div>
+            ))}
+          </div>
+        </section>
+      </main>
+    </div>
+  );
 }
