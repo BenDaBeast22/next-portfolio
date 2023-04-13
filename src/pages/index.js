@@ -1,15 +1,18 @@
 import Head from "next/head";
 import { BsFillMoonStarsFill } from "react-icons/bs";
-import { AiFillGithub, AiFillLinkedin, AiFillMail, AiOutlineDownload } from "react-icons/ai";
+import { AiFillGithub, AiFillLinkedin, AiFillMail } from "react-icons/ai";
 import { FiDownload } from "react-icons/fi";
+import { MdKeyboardArrowRight } from "react-icons/md";
 import { Kalam } from "next/font/google";
 import Image from "next/image";
-import profilePic from "../../public/ryoma.jpeg";
+import profilePic from "../../public/profilePic.jpeg";
 import multiplayerChess from "../../public/multiplayerChess.png";
 import faveVault from "../../public/faveVault.png";
-import { useState } from "react";
+import yelpCamp from "../../public/yelpCamp.png";
+import ecommerce from "../../public/ecommerce.png";
+import { useEffect, useState } from "react";
 
-const kalam = Kalam({ weight: "400", subsets: ["latin"] });
+// const kalam = Kalam({ weight: "400", subsets: ["latin"] });
 const resumeLink = "resume.pdf";
 const contacts = [
   { icon: <AiFillGithub />, link: "https://github.com/BenDaBeast22" },
@@ -26,96 +29,140 @@ const projects = [
   },
   {
     name: "Bookmark Saving Site",
-    p: "A responsive website where users could save bookmarks, images, and create rankings in collections. Moreover users were able to add friends to view their friends collections",
+    p: "A responsive website where users can save bookmarks, images, and create rankings in collections. Moreover users were able to add friends to view their friends collections",
     img: faveVault,
     alt: "Bookmark saving site image",
     link: "https://favevault-35283.web.app/",
   },
+  {
+    name: "Campground Listing Website",
+    p: "A RESTful website that lists details of user added campgrounds. Users must first sign up to create an account and login in order to add their own campgrounds to the website, or to comment on added campgrounds. The website was built with Node.js using the express framework, HTML, CSS and Bootstrap. MongoDB and Mongoose were used to implement and manipulate a database to store the campgrounds, comments and user info. Heroku was used to deploy the website.",
+    img: yelpCamp,
+    alt: "Campground listing website image",
+    link: "https://stark-waters-13391.herokuapp.com/",
+  },
+  {
+    name: "E-Commerce App",
+    p: "Used Java to create an E-Commerce app in a Gradle environment and improved the app by making a GUI with Swing. How it works is you can add either book or electronics products to the app and then you can search for the products using it's id, description and year. The app also uses a hash table to speed up seaching for words in the description.",
+    img: ecommerce,
+    alt: "E-commerce app image",
+    link: "https://github.com/BenDaBeast22/Java-Ecommerce-App",
+  },
 ];
 
 export default function Home() {
-  const [darkMode, setDarkMode] = useState(false);
-  return (
-    <div className={darkMode ? "dark" : ""}>
-      <Head>
-        <title>Ben Critoph Portfolio</title>
-      </Head>
-      <main className="bg-blue-100 text-gray-700 px-20 lg:px-30 dark:bg-slate-700 transition-colors duration-300">
-        <section>
-          <nav className="py-10 flex justify-right justify-end">
-            {/* <h1 className={`${kalam.className} text-xl dark:text-white`}>Ben Critoph</h1> */}
-            <ul className="flex items-center">
-              <li>
-                <BsFillMoonStarsFill
-                  onClick={() => setDarkMode(!darkMode)}
-                  className="cursor-pointer text-2xl dark:text-white"
-                />
-              </li>
-            </ul>
-          </nav>
-          <div className="text-center p-5">
-            <h2 className="text-5xl py-2 from text-indigo-600 lg:text-6xl dark:text-white">Benjamin Critoph</h2>
-            <h3 className="text-2xl py-2 lg:text-3xl text-gray-600 dark:text-gray-200">
-              <em>Software Developer</em>
-            </h3>
-            <p className="text-gray-700 text-lg mx-auto py-2 mb-4 leading-8 lg:text-xl max-w-lg dark:text-white">
-              Fourth year computer science co-op student at the University of Guelph. Currently looking for a summer
-              job!
-            </p>
-            <div className="flex justify-center">
-              <a
-                className="w-30 bg-indigo-600  hover:bg-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-400 text-white flex justify-center items-center px-4 py-2 rounded-md"
-                href={resumeLink}
-                download="resume"
-              >
-                <span className="mr-2">Resume</span>
-                <FiDownload />
-              </a>
-            </div>
-          </div>
-          {/* <div className="relative mx-auto bg-gradient-to-b from-blue-500 rounded-full w-80 h-80 mt-20 overflow-hidden md:h-96 md:w-96">
-            <Image src={profilePic} layout="fill" objectFit="cover" alt="profle pic" />
-          </div> */}
-        </section>
+  const [darkMode, setDarkMode] = useState(null);
+  const toggleTheme = () => {
+    const toggleDark = !darkMode;
+    setDarkMode(toggleDark);
+    if (toggleDark) {
+      localStorage.setItem("theme", "dark");
+      document.body.classList.add("dark");
+    } else {
+      localStorage.setItem("theme", "light");
+      document.body.classList.remove("dark");
+    }
+  };
+  useEffect(() => {
+    const theme = localStorage.getItem("theme");
+    if (theme === "light") {
+      setDarkMode(false);
+      document.body.classList.remove("dark");
+    } else {
+      setDarkMode(true);
+      document.body.classList.add("dark");
+    }
+  }, []);
+  return <>{darkMode !== null && App()}</>;
 
-        <section className="projects">
-          <h3 className="text-indigo-700 text-3xl lg:text-4xl py-1 dark:text-white mb-5">Projects</h3>
-          <div className="flex flex-wrap justify-between gap-5">
-            {projects.map((project, index) => (
-              <div
-                className=" md:grow lg:w-5/12 overflow-hidden bg-white shadow-lg shadow-slate-900/25 mb-5 rounded-lg"
-                key={index}
-              >
-                <a href={project.link} target="_blank">
-                  <Image src={project.img} alt={project.alt} className="cursor-pointer" />
-                </a>
-                <div className="p-4 text-gray-700">
-                  <h3 className="border-b-2 border-slate-400 text-2xl pb-2 mb-2">{project.name}</h3>
-                  <p>{project.p}</p>
-                </div>
+  function App() {
+    return (
+      <div className={darkMode ? "dark" : ""}>
+        <Head>
+          <title>Ben Critoph Portfolio</title>
+        </Head>
+        <main className="min-h-screen bg-white dark:bg-slate-700 text-gray-700 px-20 lg:px-40 transition-colors duration-300">
+          <section className="intro mb-5">
+            <nav className="py-10 flex justify-right justify-end">
+              <ul className="flex items-center">
+                <li>
+                  <BsFillMoonStarsFill onClick={toggleTheme} className="cursor-pointer text-2xl dark:text-white" />
+                </li>
+              </ul>
+            </nav>
+            <div className="text-center p-5">
+              <h2 className="text-5xl py-2 from text-indigo-600 lg:text-6xl dark:text-white">Benjamin Critoph</h2>
+              <h3 className="text-2xl py-2 mb-3 lg:text-3xl text-gray-600 dark:text-gray-100">
+                <em>Software Developer</em>
+              </h3>
+              <div className="relative mx-auto mb-3 rounded-full w-60 h-60 lg:h-80 lg:w-80 overflow-hidden">
+                <Image src={profilePic} alt="profle pic" priority />
               </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="contact-me">
-          <h3 className="text-indigo-700 text-3xl lg:text-4xl py-1 dark:text-white mb-5">Contact Me</h3>
-          <div className="pb-3 text-slate-600 dark:text-white">
-            {contacts.map((contact) => (
-              <div className="flex items-center mb-5">
-                <span className="text-3xl hover:text-slate-500 mr-3">{contact.icon}</span>
+              <p className="text-gray-700 text-lg mx-auto py-2 mb-4 leading-8 lg:text-xl max-w-lg dark:text-white">
+                Fourth year computer science co-op student at the University of Guelph. Currently looking for a summer
+                job!
+              </p>
+              <div className="flex justify-center mb-3">
                 <a
-                  className="text-blue-600 hover:text-blue-500 dark:text-indigo-300 dark:hover:text-indigo-200 underline"
-                  href={contact.link}
-                  target="_blank"
+                  className="w-30 bg-indigo-600  hover:bg-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-400 text-white flex justify-center items-center px-4 py-2 rounded-md"
+                  href={resumeLink}
+                  download="resume"
                 >
-                  {contact.link}
+                  <span className="mr-2">Resume</span>
+                  <FiDownload />
                 </a>
               </div>
-            ))}
-          </div>
-        </section>
-      </main>
-    </div>
-  );
+            </div>
+          </section>
+
+          <section className="projects mb-5">
+            <h3 className="text-indigo-700 text-3xl lg:text-4xl py-1 dark:text-white mb-8">Projects</h3>
+            <div className="flex flex-wrap justify-between gap-5">
+              {projects.map((project, index) => (
+                <div
+                  className="md:grow lg:w-5/12 overflow-hidden bg-white shadow-lg shadow-slate-900/25 mb-5 rounded-lg"
+                  key={index}
+                >
+                  <a href={project.link} target="_blank" className="relative">
+                    <Image src={project.img} alt={project.alt} className="cursor-pointer" />
+                    <div
+                      className="absolute bottom-0 left-0 right-0 top-0 opacity-0 hover:opacity-100"
+                      style={{ backgroundColor: "rgba(251, 251, 251, 0.1)" }}
+                    ></div>
+                  </a>
+                  <div className="p-4 text-gray-700">
+                    <h3 className="border-b-2 border-slate-400 text-2xl pb-2 mb-2">{project.name}</h3>
+                    <p>{project.p}</p>
+
+                    <a className="flex items-center py-5 group" href={project.link} target="_blank">
+                      <MdKeyboardArrowRight className="bg-slate-500 text-white rounded-full h-5 w-5 mr-2 group-hover:bg-slate-400" />
+                      <p className="font-bold text-gray-500 group-hover:text-gray-400">Click Here To View</p>
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="contact-me pb-5">
+            <h3 className="text-indigo-700 text-3xl lg:text-4xl py-1 dark:text-white mb-8">Contact Me</h3>
+            <div className="pb-3 text-slate-600 dark:text-white">
+              {contacts.map((contact, index) => (
+                <div className="flex items-center mb-5" key={index}>
+                  <span className="text-3xl mr-3">{contact.icon}</span>
+                  <a
+                    className="text-blue-600 hover:text-blue-500 dark:text-indigo-300 dark:hover:text-indigo-200 underline"
+                    href={contact.link}
+                    target="_blank"
+                  >
+                    {contact.link}
+                  </a>
+                </div>
+              ))}
+            </div>
+          </section>
+        </main>
+      </div>
+    );
+  }
 }
