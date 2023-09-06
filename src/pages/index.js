@@ -3,7 +3,6 @@ import { BsFillMoonStarsFill } from "react-icons/bs";
 import { AiFillGithub, AiFillLinkedin, AiFillMail } from "react-icons/ai";
 import { FiDownload } from "react-icons/fi";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { Kalam } from "next/font/google";
 import Image from "next/image";
 import profilePic from "../../public/profilePic.jpeg";
 import multiplayerChess from "../../public/multiplayerChess.png";
@@ -12,8 +11,11 @@ import yelpCamp from "../../public/yelpCamp.png";
 import ecommerce from "../../public/ecommerce.png";
 import { useEffect, useState } from "react";
 
-// const kalam = Kalam({ weight: "400", subsets: ["latin"] });
-const resumeLink = "resume.pdf";
+const resumeLink = "Ben Critoph Tech Resume 2023.pdf";
+const worktermReportLinks = [
+  { name: "Workterm Report S-22", link: "https://bendabeast22.github.io/UoG-Work-Term-Report-S22/" },
+  { name: "Workterm Report W-21", link: "https://bendabeast22.github.io/UoG-Work-Term-Report-W21/" },
+];
 const contacts = [
   { icon: <AiFillGithub />, link: "https://github.com/BenDaBeast22" },
   { icon: <AiFillLinkedin />, link: "https://www.linkedin.com/in/benjamin-critoph/" },
@@ -22,14 +24,14 @@ const contacts = [
 const projects = [
   {
     name: "Multiplayer Chess Game",
-    p: "A responsive multiplayer chess game created using React where users could send a link to play chess and communicate with their friends. The multiplayer functionality was implemented using web sockets and users could communicate via video call and chat",
+    p: "A responsive multiplayer chess app created using React and Node Js where users can quickly start a chess game by sending a link to their opponents. Moreover, players can communicate via chat or video call. The multiplayer and communication functionality was implemented using web sockets. The api for the chess logic was written by me. The app is hosted on render.com. Note that it takes about 30 seconds for it to start up since I deployed it using the free version.",
     img: multiplayerChess,
     alt: "multiplayer chessgame image",
     link: "https://multiplayer-chess.onrender.com/",
   },
   {
-    name: "Bookmark Saving Site",
-    p: "A responsive website where users can save bookmarks, images, and create rankings in collections. Moreover users were able to add friends to view their friends collections",
+    name: "Collection Listing Website",
+    p: "A responsive website created using React and Firebase where users can save their bookmarks, images, lists and rankings in collections. Moreover users can add friends to share their collections. I used Firebase for user authentication and for security rules for proper CRUD functionality. The website is hosted on Firebase and you can create an account to try it out! This app is meant to be an organization hub for quick access to things that you love.",
     img: faveVault,
     alt: "Bookmark saving site image",
     link: "https://favevault-35283.web.app/",
@@ -96,11 +98,11 @@ export default function Home() {
                 <em>Software Developer</em>
               </h3>
               <div className="relative mx-auto mb-3 rounded-full w-60 h-60 lg:h-80 lg:w-80 overflow-hidden">
-                <Image src={profilePic} alt="profle pic" priority />
+                <Image src={profilePic} alt="profle pic" />
               </div>
               <p className="text-gray-700 text-lg mx-auto py-2 mb-4 leading-8 lg:text-xl max-w-lg dark:text-white">
-                Fourth year computer science co-op student at the University of Guelph. Currently looking for a summer
-                job!
+                Fourth year computer science co-op student at the University of Guelph. Currently looking for a winter
+                co-op job for 4 or 8 semesters!
               </p>
               <div className="flex justify-center mb-3">
                 <a
@@ -111,6 +113,21 @@ export default function Home() {
                   <span className="mr-2">Resume</span>
                   <FiDownload />
                 </a>
+              </div>
+              <p className="text-gray-700 text-lg mx-auto py-2 mb-4 leading-8 lg:text-xl max-w-lg dark:text-white">
+                Check out my workterms from my previous co-ops below:
+              </p>
+              <div className="flex justify-center gap-5">
+                {worktermReportLinks.map((worktermReportLink) => (
+                  <a
+                    className="w-30 bg-gray-500  hover:bg-gray-400 dark:bg-gray-500 dark:hover:bg-gray-400 text-white flex justify-center items-center px-4 py-2 rounded-md"
+                    href={worktermReportLink.link}
+                    download="resume"
+                  >
+                    <span className="mr-2">{worktermReportLink.name}</span>
+                    <FiDownload />
+                  </a>
+                ))}
               </div>
             </div>
           </section>
