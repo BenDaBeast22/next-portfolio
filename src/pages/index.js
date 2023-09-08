@@ -118,11 +118,12 @@ export default function Home() {
                 Check out my workterms from my previous co-ops below:
               </p>
               <div className="flex justify-center gap-5">
-                {worktermReportLinks.map((worktermReportLink) => (
+                {worktermReportLinks.map((worktermReportLink, index) => (
                   <a
                     className="w-30 bg-gray-500  hover:bg-gray-400 dark:bg-gray-500 dark:hover:bg-gray-400 text-white flex justify-center items-center px-4 py-2 rounded-md"
                     href={worktermReportLink.link}
                     download="resume"
+                    key={index}
                   >
                     <span className="mr-2">{worktermReportLink.name}</span>
                     <FiDownload />
