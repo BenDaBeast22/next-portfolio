@@ -101,8 +101,8 @@ export default function Home() {
                 <Image src={profilePic} alt="profle pic" />
               </div>
               <p className="text-gray-700 text-lg mx-auto py-2 mb-4 leading-8 lg:text-xl max-w-lg dark:text-white">
-                Fourth year computer science co-op student at the University of Guelph. Currently looking for a winter
-                co-op job for 4 or 8 semesters!
+                Fourth year computer science co-op student at the University of Guelph. Currently working at Camis Inc
+                as a Software Developer.
               </p>
               <div className="flex justify-center mb-3">
                 <a
