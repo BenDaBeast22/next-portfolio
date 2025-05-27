@@ -11,24 +11,19 @@ import yelpCamp from "../../public/yelpCamp.png";
 import ecommerce from "../../public/ecommerce.png";
 import { useEffect, useState } from "react";
 
-const resumeLink = "Ben Critoph Tech Resume 2023.pdf";
+const resumeLink = "Ben Critoph Tech Resume 2025.pdf";
 const worktermReportLinks = [
-  { name: "Workterm Report S-22", link: "https://bendabeast22.github.io/UoG-Work-Term-Report-S22/" },
-  { name: "Workterm Report W-21", link: "https://bendabeast22.github.io/UoG-Work-Term-Report-W21/" },
+  { name: "Camis Summer", link: "https://bendabeast22.github.io/UoG-Work-Term-Report-S24/" },
+  { name: "Camis Winter", link: "https://bendabeast22.github.io/UoG-Work-Term-Report-W24/" },
+  { name: "Brock Solutions", link: "https://bendabeast22.github.io/UoG-Work-Term-Report-S22/" },
+  { name: "Hatch", link: "https://bendabeast22.github.io/UoG-Work-Term-Report-W21/" },
 ];
 const contacts = [
-  { icon: <AiFillGithub />, link: "https://github.com/BenDaBeast22" },
-  { icon: <AiFillLinkedin />, link: "https://www.linkedin.com/in/benjamin-critoph/" },
-  { icon: <AiFillMail />, link: "bcritoph@uoguelph.ca" },
+  { icon: <AiFillMail />, name: "bencritoph@gmail.ca", link: "bencritoph@gmail.ca" },
+  { icon: <AiFillGithub />, name: "Github", link: "https://github.com/BenDaBeast22" },
+  { icon: <AiFillLinkedin />, name: "LinkedIn", link: "https://www.linkedin.com/in/benjamin-critoph/" },
 ];
 const projects = [
-  {
-    name: "Multiplayer Chess Game",
-    p: "A responsive multiplayer chess app created using React and Node Js where users can quickly start a chess game by sending a link to their opponents. Moreover, players can communicate via chat or video call. The multiplayer and communication functionality was implemented using web sockets. The api for the chess logic was written by me. The app is hosted on render.com. Note that it takes about 30 seconds for it to start up since I deployed it using the free version.",
-    img: multiplayerChess,
-    alt: "multiplayer chessgame image",
-    link: "https://multiplayer-chess.onrender.com/",
-  },
   {
     name: "Collection Listing Website",
     p: "A responsive website created using React and Firebase where users can save their bookmarks, images, lists and rankings in collections. Moreover users can add friends to share their collections. I used Firebase for user authentication and for security rules for proper CRUD functionality. The website is hosted on Firebase and you can create an account to try it out! This app is meant to be an organization hub for quick access to things that you love.",
@@ -37,11 +32,18 @@ const projects = [
     link: "https://favevault-35283.web.app/",
   },
   {
+    name: "Multiplayer Chess Game",
+    p: "A responsive multiplayer chess app created using React and Node Js where users can quickly start a chess game by sending a link to their opponents. Moreover, players can communicate via chat or video call. The multiplayer and communication functionality was implemented using web sockets. The api for the chess logic was written by me. The app is hosted on render.com. Note that it takes about 30 seconds for it to start up since I deployed it using the free version.",
+    img: multiplayerChess,
+    alt: "multiplayer chessgame image",
+    link: "https://multiplayer-chess.onrender.com/",
+  },
+  {
     name: "Campground Listing Website",
     p: "A RESTful website that lists details of user added campgrounds. Users must first sign up to create an account and login in order to add their own campgrounds to the website, or to comment on added campgrounds. The website was built with Node.js using the express framework, HTML, CSS and Bootstrap. MongoDB and Mongoose were used to implement and manipulate a database to store the campgrounds, comments and user info. Heroku was used to deploy the website.",
     img: yelpCamp,
     alt: "Campground listing website image",
-    link: "https://stark-waters-13391.herokuapp.com/",
+    link: "https://github.com/BenDaBeast22/YelpCamp",
   },
   {
     name: "E-Commerce App",
@@ -101,8 +103,8 @@ export default function Home() {
                 <Image src={profilePic} alt="profle pic" />
               </div>
               <p className="text-gray-700 text-lg mx-auto py-2 mb-4 leading-8 lg:text-xl max-w-lg dark:text-white">
-                Fourth year computer science co-op student at the University of Guelph. Currently working at Camis Inc
-                as a Software Developer.
+                Computer Science co-op 2025 graduate from University of Guelph looking for a full-time Software
+                Developer position.
               </p>
               <div className="flex justify-center mb-3">
                 <a
@@ -114,8 +116,8 @@ export default function Home() {
                   <FiDownload />
                 </a>
               </div>
-              <p className="text-gray-700 text-lg mx-auto py-2 mb-4 leading-8 lg:text-xl max-w-lg dark:text-white">
-                Check out my workterms from my previous co-ops below:
+              <p className="text-gray-700 text-lg mx-auto py-2 mb-4 leading-8 lg:text-xl max-w-lg dark:text-white italic">
+                To learn more about my past co-op workterms click the buttons below:
               </p>
               <div className="flex justify-center gap-5">
                 {worktermReportLinks.map((worktermReportLink, index) => (
@@ -124,9 +126,9 @@ export default function Home() {
                     href={worktermReportLink.link}
                     download="resume"
                     key={index}
+                    target="_blank"
                   >
-                    <span className="mr-2">{worktermReportLink.name}</span>
-                    <FiDownload />
+                    <span>{worktermReportLink.name}</span>
                   </a>
                 ))}
               </div>
@@ -173,7 +175,7 @@ export default function Home() {
                     href={contact.link}
                     target="_blank"
                   >
-                    {contact.link}
+                    {contact.name}
                   </a>
                 </div>
               ))}
