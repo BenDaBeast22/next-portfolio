@@ -26,7 +26,7 @@ const contacts = [
 const projects = [
   {
     name: "Collection Listing Website",
-    p: "A responsive website created using React and Firebase where users can save their bookmarks, images, lists and rankings in collections. Moreover users can add friends to share their collections. I used Firebase for user authentication and for security rules for proper CRUD functionality. The website is hosted on Firebase and you can create an account to try it out! This app is meant to be an organization hub for quick access to things that you love.",
+    p: "A responsive CRUD website created using React and Firebase where users can save their bookmarks, images, lists and rankings in collections. Moreover users can add friends to share their collections. I used Firebase for user authentication, data storage and for security rules. The website is hosted on Firebase and you can create an account to try it out! This app is meant to be an organization hub for quick access to things that you love.",
     img: faveVault,
     alt: "Bookmark saving site image",
     link: "https://favevault-35283.web.app/",
