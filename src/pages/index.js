@@ -47,13 +47,6 @@ const projects = [
     link: "https://multiplayer-chess.onrender.com/",
   },
   {
-    name: "Campground Listing Website",
-    p: "A RESTful website that lists details of user added campgrounds. Users must first sign up to create an account and login in order to add their own campgrounds to the website, or to comment on added campgrounds. The website was built with Node.js using the express framework, HTML, CSS and Bootstrap. MongoDB and Mongoose were used to implement and manipulate a database to store the campgrounds, comments and user info. Heroku was used to deploy the website.",
-    img: yelpCamp,
-    alt: "Campground listing website image",
-    link: "https://github.com/BenDaBeast22/YelpCamp",
-  },
-  {
     name: "E-Commerce App",
     p: "Used Java to create an E-Commerce app in a Gradle environment and improved the app by making a GUI with Swing. How it works is you can add either book or electronics products to the app and then you can search for the products using it's id, description and year. The app also uses a hash table to speed up seaching for words in the description.",
     img: ecommerce,
@@ -61,6 +54,14 @@ const projects = [
     link: "https://github.com/BenDaBeast22/Java-Ecommerce-App",
   },
 ];
+
+// {
+//     name: "Campground Listing Website",
+//     p: "A RESTful website that lists details of user added campgrounds. Users must first sign up to create an account and login in order to add their own campgrounds to the website, or to comment on added campgrounds. The website was built with Node.js using the express framework, HTML, CSS and Bootstrap. MongoDB and Mongoose were used to implement and manipulate a database to store the campgrounds, comments and user info. Heroku was used to deploy the website.",
+//     img: yelpCamp,
+//     alt: "Campground listing website image",
+//     link: "https://github.com/BenDaBeast22/YelpCamp",
+//   },
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(null);
