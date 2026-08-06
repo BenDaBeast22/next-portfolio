@@ -7,6 +7,7 @@ import Image from "next/image";
 import profilePic from "../../public/profilePic.jpeg";
 import multiplayerCribbs from "../../public/multiplayerCribbs.png";
 import multiplayerChess from "../../public/multiplayerChess.png";
+import utaLearn from "../../public/utaLearn.png";
 import faveVault from "../../public/faveVault.png";
 import yelpCamp from "../../public/yelpCamp.png";
 import ecommerce from "../../public/ecommerce.png";
@@ -25,6 +26,13 @@ const contacts = [
   { icon: <AiFillLinkedin />, name: "LinkedIn", link: "https://www.linkedin.com/in/benjamin-critoph/" },
 ];
 const projects = [
+  {
+    name: "Japanese Song Learning App",
+    p: "An interactive Japanese lyric-based language learning app built with Next.js, TypeScript, React, and Supabase. Features real-time synchronized playback, dynamic lyric display modes (Kanji, Furigana, Romaji), and tokenized lyrics with instant dictionary readings, conjugations, and vocabulary saving. Users can also upload custom tracks for automated lyric synchronization, tokenization, and translation.",
+    img: utaLearn,
+    alt: "Japanese Lyric Based Learning app",
+    link: "https://uta-learn.vercel.app/",
+  },
   {
     name: "Multiplayer Cross Cribbs Game",
     p: "A responsive multiplayer cross cribbs app developped using TypeScript. I used React for the frontend framework, Node for the game server and Socket IO for multiplayer functionality. Users can play Cross Cribbs locally or multiplayer 1v1 or 2v2 in teams. In multiplayer users can host or join a game room to play together.",
@@ -46,13 +54,13 @@ const projects = [
     alt: "multiplayer chessgame image",
     link: "https://multiplayer-chess.onrender.com/",
   },
-  {
-    name: "E-Commerce App",
-    p: "Used Java to create an E-Commerce app in a Gradle environment and improved the app by making a GUI with Swing. How it works is you can add either book or electronics products to the app and then you can search for the products using it's id, description and year. The app also uses a hash table to speed up seaching for words in the description.",
-    img: ecommerce,
-    alt: "E-commerce app image",
-    link: "https://github.com/BenDaBeast22/Java-Ecommerce-App",
-  },
+  // {
+  //   name: "E-Commerce App",
+  //   p: "Used Java to create an E-Commerce app in a Gradle environment and improved the app by making a GUI with Swing. How it works is you can add either book or electronics products to the app and then you can search for the products using it's id, description and year. The app also uses a hash table to speed up seaching for words in the description.",
+  //   img: ecommerce,
+  //   alt: "E-commerce app image",
+  //   link: "https://github.com/BenDaBeast22/Java-Ecommerce-App",
+  // },
 ];
 
 // {
