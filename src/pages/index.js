@@ -72,7 +72,7 @@ const projects = [
   },
 ];
 
-const stack = ["React", "Next.js", "TypeScript", "Node.js", "Firebase", "Supabase"];
+const stack = ["React", "Angular", "TypeScript/JavaScript", "Next.js", "Node.js"];
 
 // Reveals children with a fade + rise once they scroll into view.
 function Reveal({ children, className = "", delay = 0, as: Tag = "div" }) {
