@@ -108,31 +108,67 @@ function Reveal({ children, className = "", delay = 0, as: Tag = "div" }) {
   );
 }
 
-// Types text out character-by-character, like a terminal.
-function useTypedText(text, speed = 55, startDelay = 400) {
-  const [displayed, setDisplayed] = useState("");
-  const [done, setDone] = useState(false);
+// Custom hook to sequence multi-step terminal typing and outputs
+function useTerminalSequence() {
+  const [step, setStep] = useState(0); // 0: typing name, 1: name done, 2: typing cat, 3: cat output, 4: typing ls, 5: ls output
+  const [typedName, setTypedName] = useState("");
+  const [typedCatCmd, setTypedCatCmd] = useState("");
+  const [typedLsCmd, setTypedLsCmd] = useState("");
+
+  const nameText = "Benjamin Critoph";
+  const catText = "cat about.md";
+  const lsText = "ls stack/";
 
   useEffect(() => {
     let i = 0;
-    let interval;
     const timeout = setTimeout(() => {
-      interval = setInterval(() => {
+      const interval = setInterval(() => {
         i += 1;
-        setDisplayed(text.slice(0, i));
-        if (i >= text.length) {
+        setTypedName(nameText.slice(0, i));
+        if (i >= nameText.length) {
           clearInterval(interval);
-          setDone(true);
+          setStep(1);
         }
-      }, speed);
-    }, startDelay);
-    return () => {
-      clearTimeout(timeout);
-      clearInterval(interval);
-    };
-  }, [text, speed, startDelay]);
+      }, 50);
+    }, 300);
+    return () => clearTimeout(timeout);
+  }, []);
 
-  return { displayed, done };
+  useEffect(() => {
+    if (step !== 1) return;
+    let i = 0;
+    const timeout = setTimeout(() => {
+      setStep(2);
+      const interval = setInterval(() => {
+        i += 1;
+        setTypedCatCmd(catText.slice(0, i));
+        if (i >= catText.length) {
+          clearInterval(interval);
+          setTimeout(() => setStep(3), 200);
+        }
+      }, 40);
+    }, 400);
+    return () => clearTimeout(timeout);
+  }, [step]);
+
+  useEffect(() => {
+    if (step !== 3) return;
+    let i = 0;
+    const timeout = setTimeout(() => {
+      setStep(4);
+      const interval = setInterval(() => {
+        i += 1;
+        setTypedLsCmd(lsText.slice(0, i));
+        if (i >= lsText.length) {
+          clearInterval(interval);
+          setTimeout(() => setStep(5), 200);
+        }
+      }, 40);
+    }, 500);
+    return () => clearTimeout(timeout);
+  }, [step]);
+
+  return { step, typedName, typedCatCmd, typedLsCmd };
 }
 
 function ProjectCard({ project, index }) {
@@ -151,7 +187,6 @@ function ProjectCard({ project, index }) {
         onMouseEnter={(e) => (e.currentTarget.style.borderColor = project.accent)}
         onMouseLeave={(e) => (e.currentTarget.style.borderColor = "var(--border)")}
       >
-        {/* fake editor tab bar */}
         <div
           className="flex items-center justify-between px-4 py-2 border-b text-xs font-['JetBrains_Mono']"
           style={{ borderColor: "var(--border)" }}
@@ -209,7 +244,7 @@ function ProjectCard({ project, index }) {
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(null);
-  const { displayed: typedName, done: nameDone } = useTypedText("Benjamin Critoph");
+  const terminal = useTerminalSequence();
 
   const toggleTheme = () => {
     const toggleDark = !darkMode;
@@ -234,16 +269,12 @@ export default function Home() {
     }
   }, []);
 
-  return (
-    <>
-      {darkMode !== null && (
-        <App darkMode={darkMode} toggleTheme={toggleTheme} typedName={typedName} nameDone={nameDone} />
-      )}
-    </>
-  );
+  return <>{darkMode !== null && <App darkMode={darkMode} toggleTheme={toggleTheme} terminal={terminal} />}</>;
 }
 
-function App({ darkMode, toggleTheme, typedName, nameDone }) {
+function App({ darkMode, toggleTheme, terminal }) {
+  const { step, typedName, typedCatCmd, typedLsCmd } = terminal;
+
   return (
     <div className={darkMode ? "dark" : ""}>
       <Head>
@@ -359,7 +390,6 @@ function App({ darkMode, toggleTheme, typedName, nameDone }) {
 
         {/* HERO */}
         <section className="relative mb-10 md:mb-28 pt-6">
-          {/* ambient blobs */}
           <div
             className="blob absolute -top-10 -left-16 h-64 w-64 rounded-full opacity-20 blur-3xl pointer-events-none"
             style={{ backgroundColor: "var(--accent-blue)" }}
@@ -385,40 +415,77 @@ function App({ darkMode, toggleTheme, typedName, nameDone }) {
                   </span>
                 </div>
 
-                <div className="p-6 sm:p-8 font-['JetBrains_Mono'] text-sm sm:text-base leading-8">
+                <div className="p-6 sm:p-8 font-['JetBrains_Mono'] text-sm sm:text-base leading-8 min-h-[360px]">
+                  {/* Step 1: whoami */}
                   <p>
                     <span style={{ color: "var(--accent-green)" }}>$</span> whoami
                   </p>
                   <p className="text-2xl sm:text-4xl font-semibold my-2" style={{ color: "var(--text)" }}>
                     {typedName}
-                    <span className="cursor-blink" style={{ color: "var(--accent-mauve)" }}>
-                      _
-                    </span>
-                  </p>
-                  <p style={{ color: "var(--text-dim)" }}>
-                    <span style={{ color: "var(--accent-peach)" }}>#</span> Software Developer · CS Co-op &apos;25 Grad
+                    {step === 0 && (
+                      <span className="cursor-blink" style={{ color: "var(--accent-mauve)" }}>
+                        _
+                      </span>
+                    )}
                   </p>
 
-                  {nameDone && (
-                    <div className="mt-6 opacity-0 animate-[fadeInUpLocal_0.6s_ease_forwards]">
+                  {step >= 1 && (
+                    <p
+                      className="opacity-0 animate-[fadeInUpLocal_0.4s_ease_forwards]"
+                      style={{ color: "var(--text-dim)" }}
+                    >
+                      <span style={{ color: "var(--accent-peach)" }}>#</span> Software Developer · CS Co-op &apos;25
+                      Grad
+                    </p>
+                  )}
+
+                  {/* Step 2: cat about.md */}
+                  {step >= 1 && (
+                    <div className="mt-6">
                       <p>
-                        <span style={{ color: "var(--accent-green)" }}>$</span> cat about.md
-                      </p>
-                      <p className="mt-1 text-sm sm:text-base" style={{ color: "var(--text-dim)" }}>
-                        Computer Science new grad looking for a full-time Software Developer role. I like building
-                        multiplayer, real-time things.
-                      </p>
-                      <p className="mt-4">
-                        <span style={{ color: "var(--accent-green)" }}>$</span> ls stack/
-                      </p>
-                      <p className="mt-1 flex flex-wrap gap-x-2 gap-y-1">
-                        {stack.map((s, i) => (
-                          <span key={s}>
-                            <span style={{ color: "var(--accent-blue)" }}>&quot;{s}&quot;</span>
-                            {i < stack.length - 1 ? <span style={{ color: "var(--text-dim)" }}>,</span> : null}
+                        <span style={{ color: "var(--accent-green)" }}>$</span> {typedCatCmd}
+                        {step === 2 && (
+                          <span className="cursor-blink" style={{ color: "var(--accent-mauve)" }}>
+                            _
                           </span>
-                        ))}
+                        )}
                       </p>
+                      {step >= 3 && (
+                        <p
+                          className="mt-1 text-sm sm:text-base opacity-0 animate-[fadeInUpLocal_0.4s_ease_forwards]"
+                          style={{ color: "var(--text-dim)" }}
+                        >
+                          Computer Science new grad looking for a full-time Software Developer role. I like building
+                          multiplayer, real-time things.
+                        </p>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Step 3: ls stack/ */}
+                  {step >= 3 && (
+                    <div className="mt-4">
+                      <p>
+                        <span style={{ color: "var(--accent-green)" }}>$</span> {typedLsCmd}
+                        {(step === 3 || step === 4) && (
+                          <span className="cursor-blink" style={{ color: "var(--accent-mauve)" }}>
+                            _
+                          </span>
+                        )}
+                      </p>
+                      {step >= 5 && (
+                        <p className="mt-1 flex flex-wrap gap-x-2 gap-y-1 opacity-0 animate-[fadeInUpLocal_0.4s_ease_forwards]">
+                          {stack.map((s, i) => (
+                            <span key={s}>
+                              <span style={{ color: "var(--accent-blue)" }}>&quot;{s}&quot;</span>
+                              {i < stack.length - 1 ? <span style={{ color: "var(--text-dim)" }}>,</span> : null}
+                            </span>
+                          ))}
+                          <span className="cursor-blink" style={{ color: "var(--accent-mauve)" }}>
+                            _
+                          </span>
+                        </p>
+                      )}
                     </div>
                   )}
                 </div>
