@@ -10,7 +10,7 @@ import utaLearn from "../../public/utaLearn.png";
 import faveVault from "../../public/faveVault.png";
 import { useEffect, useRef, useState } from "react";
 
-const resumeLink = "Ben Critoph Tech Resume 2025.pdf";
+const resumeLink = "Ben Critoph Tech Resume.pdf";
 
 const worktermReportLinks = [
   { name: "camis_summer.md", link: "https://bendabeast22.github.io/UoG-Work-Term-Report-S24/" },
@@ -20,7 +20,7 @@ const worktermReportLinks = [
 ];
 
 const contacts = [
-  { icon: <AiFillMail />, name: "bencritoph@gmail.ca", link: "bencritoph@gmail.ca" },
+  { icon: <AiFillMail />, name: "bencritoph@gmail.ca", link: "mailto:bencritoph@gmail.ca" },
   { icon: <AiFillGithub />, name: "github.com/BenDaBeast22", link: "https://github.com/BenDaBeast22" },
   {
     icon: <AiFillLinkedin />,
@@ -248,15 +248,11 @@ function App({ darkMode, toggleTheme, typedName, nameDone }) {
     <div className={darkMode ? "dark" : ""}>
       <Head>
         <title>Ben Critoph Portfolio</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
       </Head>
 
       <style jsx global>{`
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap");
+
         :root {
           --bg: #eff1f5;
           --bg-alt: #e6e9ef;
@@ -282,6 +278,7 @@ function App({ darkMode, toggleTheme, typedName, nameDone }) {
         body {
           background-color: var(--bg);
           transition: background-color 0.3s ease;
+          font-family: "Inter", sans-serif;
         }
         ::selection {
           background-color: var(--accent-mauve);
@@ -361,7 +358,7 @@ function App({ darkMode, toggleTheme, typedName, nameDone }) {
         </nav>
 
         {/* HERO */}
-        <section className="relative mb-32 pt-6">
+        <section className="relative mb-10 md:mb-28 pt-6">
           {/* ambient blobs */}
           <div
             className="blob absolute -top-10 -left-16 h-64 w-64 rounded-full opacity-20 blur-3xl pointer-events-none"
@@ -399,7 +396,7 @@ function App({ darkMode, toggleTheme, typedName, nameDone }) {
                     </span>
                   </p>
                   <p style={{ color: "var(--text-dim)" }}>
-                    <span style={{ color: "var(--accent-peach)" }}>#</span> Software Developer · CS Co-op '25 Grad
+                    <span style={{ color: "var(--accent-peach)" }}>#</span> Software Developer · CS Co-op &apos;25 Grad
                   </p>
 
                   {nameDone && (
@@ -408,7 +405,7 @@ function App({ darkMode, toggleTheme, typedName, nameDone }) {
                         <span style={{ color: "var(--accent-green)" }}>$</span> cat about.md
                       </p>
                       <p className="mt-1 text-sm sm:text-base" style={{ color: "var(--text-dim)" }}>
-                        University of Guelph grad looking for a full-time Software Developer role — I like building
+                        Computer Science new grad looking for a full-time Software Developer role. I like building
                         multiplayer, real-time things.
                       </p>
                       <p className="mt-4">
@@ -496,7 +493,7 @@ function App({ darkMode, toggleTheme, typedName, nameDone }) {
         </section>
 
         {/* PROJECTS */}
-        <section className="mb-32">
+        <section className="mb-10 md:mb-28">
           <Reveal>
             <p className="font-['JetBrains_Mono'] text-sm mb-2" style={{ color: "var(--accent-green)" }}>
               $ ls ~/projects
@@ -514,7 +511,7 @@ function App({ darkMode, toggleTheme, typedName, nameDone }) {
         </section>
 
         {/* CONTACT */}
-        <section className="pb-20">
+        <section className="pb-10 md:pb-20">
           <Reveal>
             <p className="font-['JetBrains_Mono'] text-sm mb-2" style={{ color: "var(--accent-green)" }}>
               $ contact --list
@@ -552,7 +549,7 @@ function App({ darkMode, toggleTheme, typedName, nameDone }) {
 
           <Reveal delay={300}>
             <p className="mt-16 font-['JetBrains_Mono'] text-xs" style={{ color: "var(--text-dim)" }}>
-              // built with Next.js &amp; Tailwind
+              {"// built with Next.js & Tailwind"}
               <span className="cursor-blink" style={{ color: "var(--accent-green)" }}>
                 _
               </span>
