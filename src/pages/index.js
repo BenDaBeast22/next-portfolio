@@ -48,7 +48,7 @@ const projects = [
     tech: ["TypeScript", "Node.js", "Socket.IO"],
     img: multiplayerCribbs,
     alt: "Multiplayer cross cribbs game image",
-    link: "https://crosscribbs-multiplayer.onrender.com/",
+    link: "https://crosscribbs-online.onrender.com",
   },
   {
     name: "Collection Listing Website",
